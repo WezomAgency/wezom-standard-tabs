@@ -1,1 +1,1 @@
-# Wezom-standard-tabs
+# Wezom standard tabs
