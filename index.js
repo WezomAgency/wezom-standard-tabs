@@ -153,9 +153,23 @@ const wsTabs = {
 	 * @sourceCode
 	 */
 	init ($context = $(document)) {
-		$context.on('click', `[data-${wsTabs.keys.button}]`, { $context }, function (event) {
+		$context.on('click', `[data-${wsTabs.keys.button}]`, {$context}, function (event) {
 			event.preventDefault();
 			changeTab($(this), $context);
+		});
+
+		$context.on('keydown', `[data-${wsTabs.keys.button}]`, {$context}, function (event) {
+			let code = null;
+			if (event.key !== undefined) {
+				code = event.key
+			} else if (event.keyIdentifier !== undefined) {
+				code = event.keyIdentifier
+			} else if (event.keyCode !== undefined) {
+				code = event.keyCode
+			}
+			if (code === 13) {
+				changeTab($(this), $context);
+			}
 		});
 	},
 
