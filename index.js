@@ -17,7 +17,7 @@ import 'custom-jquery-methods/fn/get-my-elements';
 
 /**
  * Не реагировать на клик
- * @param {JQuery} $button
+ * @param {jQuery} $button
  * @return {boolean|undefined}
  * @private
  */
@@ -26,8 +26,8 @@ function noReact ($button) {
 }
 
 /**
- * @param {JQuery} $button
- * @param {JQuery} $context
+ * @param {jQuery} $button
+ * @param {jQuery} $context
  * @private
  */
 function changeTab ($button, $context) {
@@ -40,7 +40,7 @@ function changeTab ($button, $context) {
 	let blockSelector = `[data-${wsTabs.keys.ns}="${myNs}"][data-${wsTabs.keys.block}="${myName}"]`;
 
 	/**
-	 * @type {JQuery}
+	 * @type {jQuery}
 	 */
 	let $block = $button.getMyElements(wsTabs.keys.myBlock, blockSelector);
 	if (noReact($button)) {
@@ -49,12 +49,12 @@ function changeTab ($button, $context) {
 	}
 
 	/**
-	 * @type {JQuery}
+	 * @type {jQuery}
 	 */
 	let $siblingBlocks = $block.getMyElements(wsTabs.keys.myBlocks, blocksSelector, $context, true);
 
 	/**
-	 * @type {JQuery}
+	 * @type {jQuery}
 	 */
 	let $siblingButtons = $button.getMyElements(wsTabs.keys.myButtons, buttonsSelector, $context, true);
 	let $syncButtons = $siblingButtons.filter(buttonSyncSelector);
@@ -68,8 +68,8 @@ function changeTab ($button, $context) {
 
 /**
  * Активация табов, если нету активных
- * @param {JQuery} $buttons
- * @param {JQuery} $context
+ * @param {jQuery} $buttons
+ * @param {jQuery} $context
  * @private
  */
 function setActiveIfNotHave ($buttons, $context) {
@@ -91,7 +91,7 @@ function setActiveIfNotHave ($buttons, $context) {
 
 /**
  * Сброс зависимолстей
- * @param {JQuery} $list
+ * @param {jQuery} $list
  * @param {Array.<string>} keys
  * @private
  */
@@ -149,7 +149,7 @@ const wsTabs = {
 
 	/**
 	 * Инициализация
-	 * @param {JQuery} [$context=$(document)]
+	 * @param {jQuery} [$context=$(document)]
 	 * @sourceCode
 	 */
 	init ($context = $(document)) {
@@ -175,7 +175,7 @@ const wsTabs = {
 
 	/**
 	 * Принудительная активация табов, если нету активных
-	 * @param {JQuery} [$context=$(document)]
+	 * @param {jQuery} [$context=$(document)]
 	 * @sourceCode
 	 */
 	setActive ($context = $(document)) {
@@ -186,7 +186,7 @@ const wsTabs = {
 	/**
 	 * Сброс всех связей.
 	 * Актуально при динамическом добавление новый кнопок и блоков в уже существующие группы табов
-	 * @param {JQuery} [$context=$(document)]
+	 * @param {jQuery} [$context=$(document)]
 	 * @sourceCode
 	 */
 	dropDependencies ($context = $(document)) {
