@@ -194,7 +194,7 @@ const wsTabs = {
 			} else if (event.keyCode !== undefined) {
 				code = event.keyCode
 			}
-			if (code === 13) {
+			if (code === 13 || code.toLowerCase() === 'enter') {
 				changeTab($(this), $context);
 			}
 		});
