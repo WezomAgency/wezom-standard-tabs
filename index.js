@@ -45,6 +45,11 @@ function changeTab ($button, $context) {
 	let $block = $button.getMyElements(wsTabs.keys.myBlock, blockSelector);
 	if (noReact($button)) {
 		$button.add($block).trigger(wsTabs.events.again);
+		wsTabs.hooks.again.forEach(hook => {
+			if (typeof hook === 'function') {
+				hook(myNs, myName, $button, $block);
+			}
+		});
 		return false;
 	}
 
@@ -64,6 +69,18 @@ function changeTab ($button, $context) {
 
 	$siblingButtons.add($siblingBlocks).removeClass(wsTabs.cssClass.active).trigger(wsTabs.events.off);
 	$button.add($syncButtons).add($block).addClass(wsTabs.cssClass.active).trigger(wsTabs.events.on);
+
+	wsTabs.hooks.off.forEach(hook => {
+		if (typeof hook === 'function') {
+			hook(myNs, myName, $siblingButtons, $siblingBlocks);
+		}
+	});
+
+	wsTabs.hooks.on.forEach(hook => {
+		if (typeof hook === 'function') {
+			hook(myNs, myName, $button, $block, $syncButtons);
+		}
+	});
 }
 
 /**
@@ -121,6 +138,16 @@ const wsTabs = {
 		on: 'wstabs-on',
 		off: 'wstabs-off',
 		again: 'wstabs-again'
+	},
+
+	/**
+	 * @enum {Array}
+	 * @sourceCode
+	 */
+	hooks: {
+		on: [],
+		off: [],
+		again: [],
 	},
 
 	/**
