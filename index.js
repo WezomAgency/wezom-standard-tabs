@@ -180,8 +180,7 @@ const wsTabs = {
 	 * @sourceCode
 	 */
 	init ($context = $(document)) {
-		$context.on('click', `[data-${wsTabs.keys.button}]`, {$context}, function (event) {
-			event.preventDefault();
+		$context.on('click', `[data-${wsTabs.keys.button}]`, {$context}, function () {
 			changeTab($(this), $context);
 		});
 
