@@ -9,6 +9,7 @@
 // Imports
 // ----------------------------------------
 
+import $ from 'jquery';
 import 'custom-jquery-methods/fn/get-my-elements';
 
 // ----------------------------------------
@@ -21,8 +22,65 @@ import 'custom-jquery-methods/fn/get-my-elements';
  * @return {boolean|undefined}
  * @private
  */
-function noReact ($button) {
+function _noReact ($button) {
 	return $button.hasClass(wsTabs.cssClass.active) || $button.hasClass(wsTabs.cssClass.disabled) || $button.prop('disabled');
+}
+
+/**
+ * @param {jQuery} $button
+ * @param {jQuery} $context
+ * @return {{myNs:string, myName:string, buttonsSelector:string, buttonSyncSelector:string, blocksSelector:string, blockSelector:string, $block:jQuery, $siblingBlocks:jQuery, $siblingButtons:jQuery, $syncButtons:jQuery}}
+ * @private
+ */
+function _ejectData ($button, $context) {
+	const data = {
+		myNs: $button.data(wsTabs.keys.ns),
+		myName: $button.data(wsTabs.keys.button),
+		get buttonsSelector () {
+			return `[data-${wsTabs.keys.ns}="${this.myNs}"][data-${wsTabs.keys.button}]`;
+		},
+		get buttonSyncSelector () {
+			return `[data-${wsTabs.keys.ns}="${this.myNs}"][data-${wsTabs.keys.button}="${this.myName}"]`;
+		},
+		get blocksSelector () {
+			return `[data-${wsTabs.keys.ns}="${this.myNs}"][data-${wsTabs.keys.block}]`;
+		},
+		get blockSelector () {
+			return `[data-${wsTabs.keys.ns}="${this.myNs}"][data-${wsTabs.keys.block}="${this.myName}"]`;
+		},
+		get $block () {
+			return $button.getMyElements(wsTabs.keys.myBlock, this.blockSelector);
+		},
+		get $siblingBlocks () {
+			return this.$block.getMyElements(wsTabs.keys.myBlocks, this.blocksSelector, $context, true);
+		},
+		get $siblingButtons () {
+			return $button.getMyElements(wsTabs.keys.myButtons, this.buttonsSelector, $context, true);
+		},
+		get $syncButtons () {
+			return this.$siblingButtons.filter(this.buttonSyncSelector);
+		}
+	};
+	if (data.$syncButtons.length) {
+		data.$siblingButtons = data.$siblingButtons.not(data.$syncButtons);
+	}
+	return data;
+}
+
+/**
+ * @param {string} name
+ * @param {*} ...args
+ * @private
+ */
+function _runHook (name, ...args) {
+	const hooks = wsTabs.hooks[name];
+	if (Array.isArray(hooks)) {
+		hooks.forEach(hook => {
+			if (typeof hook === 'function') {
+				hook(...args);
+			}
+		});
+	}
 }
 
 /**
@@ -30,74 +88,23 @@ function noReact ($button) {
  * @param {jQuery} $context
  * @private
  */
-function changeTab ($button, $context) {
-	let myNs = $button.data(wsTabs.keys.ns);
-	let myName = $button.data(wsTabs.keys.button);
-
-	let buttonsSelector = `[data-${wsTabs.keys.ns}="${myNs}"][data-${wsTabs.keys.button}]`;
-	let buttonSyncSelector = `[data-${wsTabs.keys.ns}="${myNs}"][data-${wsTabs.keys.button}="${myName}"]`;
-	let blocksSelector = `[data-${wsTabs.keys.ns}="${myNs}"][data-${wsTabs.keys.block}]`;
-	let blockSelector = `[data-${wsTabs.keys.ns}="${myNs}"][data-${wsTabs.keys.block}="${myName}"]`;
-
-	/**
-	 * @type {jQuery}
-	 */
-	let $block = $button.getMyElements(wsTabs.keys.myBlock, blockSelector);
-	if (noReact($button)) {
-		wsTabs.hooks.beforeAgain.forEach(hook => {
-			if (typeof hook === 'function') {
-				hook(myNs, myName, $button, $block);
-			}
-		});
+function _changeTab ($button, $context) {
+	const {myNs, myName, $block, $siblingBlocks, $siblingButtons, $syncButtons} = _ejectData($button, $context);
+	if (_noReact($button)) {
+		_runHook('beforeAgain', myNs, myName, $button, $block);
 		$button.add($block).trigger(wsTabs.events.again);
-		wsTabs.hooks.again.forEach(hook => {
-			if (typeof hook === 'function') {
-				hook(myNs, myName, $button, $block);
-			}
-		});
+		_runHook('again', myNs, myName, $button, $block);
 		return false;
 	}
 
-	/**
-	 * @type {jQuery}
-	 */
-	let $siblingBlocks = $block.getMyElements(wsTabs.keys.myBlocks, blocksSelector, $context, true);
-
-	/**
-	 * @type {jQuery}
-	 */
-	let $siblingButtons = $button.getMyElements(wsTabs.keys.myButtons, buttonsSelector, $context, true);
-	let $syncButtons = $siblingButtons.filter(buttonSyncSelector);
-	if ($syncButtons.length) {
-		$siblingButtons = $siblingButtons.not($syncButtons);
-	}
-
-	wsTabs.hooks.beforeOff.forEach(hook => {
-		if (typeof hook === 'function') {
-			hook(myNs, myName, $siblingButtons, $siblingBlocks);
-		}
-	});
-
-	wsTabs.hooks.beforeOn.forEach(hook => {
-		if (typeof hook === 'function') {
-			hook(myNs, myName, $button, $block, $syncButtons);
-		}
-	});
+	_runHook('beforeOff', myNs, myName, $siblingButtons, $siblingBlocks);
+	_runHook('beforeOn', myNs, myName, $button, $block, $syncButtons);
 
 	$siblingButtons.add($siblingBlocks).removeClass(wsTabs.cssClass.active).trigger(wsTabs.events.off);
 	$button.add($syncButtons).add($block).addClass(wsTabs.cssClass.active).trigger(wsTabs.events.on);
 
-	wsTabs.hooks.off.forEach(hook => {
-		if (typeof hook === 'function') {
-			hook(myNs, myName, $siblingButtons, $siblingBlocks);
-		}
-	});
-
-	wsTabs.hooks.on.forEach(hook => {
-		if (typeof hook === 'function') {
-			hook(myNs, myName, $button, $block, $syncButtons);
-		}
-	});
+	_runHook('off', myNs, myName, $siblingButtons, $siblingBlocks);
+	_runHook('on', myNs, myName, $button, $block, $syncButtons);
 }
 
 /**
@@ -114,7 +121,7 @@ function setActiveIfNotHave ($buttons, $context) {
 	if ($group.length) {
 		let $active = $group.filter(`.${wsTabs.cssClass.active}`);
 		if (!$active.length) {
-			changeTab($group.eq(0), $context);
+			_changeTab($group.eq(0), $context);
 		}
 
 		if ($group.length < $buttons.length) {
@@ -126,13 +133,14 @@ function setActiveIfNotHave ($buttons, $context) {
 /**
  * Сброс зависимолстей
  * @param {jQuery} $list
- * @param {Array.<string>} keys
+ * @param {strig[]} keys
  * @private
  */
 function dropDependencies ($list, keys) {
+	const wsTabsKeys = Object.keys(wsTabs.keys);
 	$list.each((i, el) => {
 		let $item = $(el);
-		wsTabs.keys.forEach(key => {
+		wsTabsKeys.forEach(key => {
 			$item.data(key, null);
 		});
 	});
@@ -148,8 +156,8 @@ function dropDependencies ($list, keys) {
 const wsTabs = {
 	/**
 	 * События
-	 * @enum {string}
 	 * @sourceCode
+	 * @enum {string}
 	 */
 	events: {
 		on: 'wstabs-on',
@@ -158,8 +166,8 @@ const wsTabs = {
 	},
 
 	/**
-	 * @enum {Array}
 	 * @sourceCode
+	 * @enum {function[]}
 	 */
 	hooks: {
 		beforeOn: [],
@@ -172,8 +180,8 @@ const wsTabs = {
 
 	/**
 	 * CSS классы
-	 * @enum {string}
 	 * @sourceCode
+	 * @enum {string}
 	 */
 	cssClass: {
 		active: 'is-active',
@@ -182,8 +190,8 @@ const wsTabs = {
 
 	/**
 	 * Ключи
-	 * @enum {string}
 	 * @sourceCode
+	 * @enum {string}
 	 */
 	keys: {
 		ns: 'wstabs-ns',
@@ -196,33 +204,34 @@ const wsTabs = {
 
 	/**
 	 * Инициализация
-	 * @param {jQuery} [$context=$(document)]
 	 * @sourceCode
+	 * @param {jQuery} [$context=$(document)]
 	 */
 	init ($context = $(document)) {
+		this.updateDependencies($context);
 		$context.on('click', `[data-${wsTabs.keys.button}]`, {$context}, function () {
-			changeTab($(this), $context);
+			_changeTab($(this), $context);
 		});
 
 		$context.on('keydown', `[data-${wsTabs.keys.button}]`, {$context}, function (event) {
 			let code = null;
 			if (event.key !== undefined) {
-				code = event.key
+				code = event.key;
 			} else if (event.keyIdentifier !== undefined) {
-				code = event.keyIdentifier
+				code = event.keyIdentifier;
 			} else if (event.keyCode !== undefined) {
-				code = event.keyCode
+				code = event.keyCode;
 			}
 			if (code === 13 || code.toLowerCase() === 'enter') {
-				changeTab($(this), $context);
+				_changeTab($(this), $context);
 			}
 		});
 	},
 
 	/**
 	 * Принудительная активация табов, если нету активных
-	 * @param {jQuery} [$context=$(document)]
 	 * @sourceCode
+	 * @param {jQuery} [$context=$(document)]
 	 */
 	setActive ($context = $(document)) {
 		let $buttons = $context.find(`[data-${wsTabs.keys.button}]`);
@@ -231,15 +240,27 @@ const wsTabs = {
 
 	/**
 	 * Сброс всех связей.
-	 * Актуально при динамическом добавление новый кнопок и блоков в уже существующие группы табов
-	 * @param {jQuery} [$context=$(document)]
 	 * @sourceCode
+	 * @param {jQuery} [$context=$(document)]
+	 * @return {{$buttons: $jQuery, $blocks: $jQuery}}
 	 */
 	dropDependencies ($context = $(document)) {
 		let $buttons = $context.find(`[data-${wsTabs.keys.button}]`);
 		let $blocks = $context.find(`[data-${wsTabs.keys.block}]`);
 		dropDependencies($buttons, [wsTabs.keys.myBlock, wsTabs.keys.myButtons]);
 		dropDependencies($blocks, [wsTabs.keys.myBlocks]);
+		return {$buttons, $blocks};
+	},
+
+	/**
+	 * Обновление всех связей с предварительным сбросом.
+	 * Актуально при динамическом добавление новый кнопок и блоков в уже существующие группы табов
+	 * @sourceCode
+	 * @param {jQuery} [$context=$(document)]
+	 */
+	updateDependencies ($context = $(document)) {
+		const {$buttons} = this.dropDependencies($context);
+		$buttons.each((i, button) => _ejectData($(button), $context));
 	}
 };
 
