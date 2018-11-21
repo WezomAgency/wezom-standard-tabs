@@ -9,7 +9,6 @@
 // Imports
 // ----------------------------------------
 
-import $ from 'jquery';
 import 'custom-jquery-methods/fn/get-my-elements';
 
 // ----------------------------------------
@@ -33,6 +32,7 @@ function _noReact ($button) {
  * @private
  */
 function _ejectData ($button, $context) {
+	let $sibling = null;
 	const data = {
 		myNs: $button.data(wsTabs.keys.ns),
 		myName: $button.data(wsTabs.keys.button),
@@ -55,14 +55,14 @@ function _ejectData ($button, $context) {
 			return this.$block.getMyElements(wsTabs.keys.myBlocks, this.blocksSelector, $context, true);
 		},
 		get $siblingButtons () {
-			return $button.getMyElements(wsTabs.keys.myButtons, this.buttonsSelector, $context, true);
+			return $sibling || $button.getMyElements(wsTabs.keys.myButtons, this.buttonsSelector, $context, true);
 		},
 		get $syncButtons () {
 			return this.$siblingButtons.filter(this.buttonSyncSelector);
-		}
-	};
+		},
+	}
 	if (data.$syncButtons.length) {
-		data.$siblingButtons = data.$siblingButtons.not(data.$syncButtons);
+		$sibling = data.$siblingButtons.not(data.$syncButtons);
 	}
 	return data;
 }
@@ -175,7 +175,8 @@ const wsTabs = {
 		beforeAgain: [],
 		on: [],
 		off: [],
-		again: []
+		again: [],
+		update: []
 	},
 
 	/**
@@ -209,18 +210,18 @@ const wsTabs = {
 	 */
 	init ($context = $(document)) {
 		this.updateDependencies($context);
-		$context.on('click', `[data-${wsTabs.keys.button}]`, {$context}, function () {
+		$context.on('click', `[data-${this.keys.button}]`, {$context}, function () {
 			_changeTab($(this), $context);
 		});
 
-		$context.on('keydown', `[data-${wsTabs.keys.button}]`, {$context}, function (event) {
+		$context.on('keydown', `[data-${this.keys.button}]`, {$context}, function (event) {
 			let code = null;
 			if (event.key !== undefined) {
-				code = event.key;
+				code = event.key
 			} else if (event.keyIdentifier !== undefined) {
-				code = event.keyIdentifier;
+				code = event.keyIdentifier
 			} else if (event.keyCode !== undefined) {
-				code = event.keyCode;
+				code = event.keyCode
 			}
 			if (code === 13 || code.toLowerCase() === 'enter') {
 				_changeTab($(this), $context);
@@ -234,7 +235,7 @@ const wsTabs = {
 	 * @param {jQuery} [$context=$(document)]
 	 */
 	setActive ($context = $(document)) {
-		let $buttons = $context.find(`[data-${wsTabs.keys.button}]`);
+		let $buttons = $context.find(`[data-${this.keys.button}]`);
 		setActiveIfNotHave($buttons, $context);
 	},
 
@@ -245,10 +246,10 @@ const wsTabs = {
 	 * @return {{$buttons: $jQuery, $blocks: $jQuery}}
 	 */
 	dropDependencies ($context = $(document)) {
-		let $buttons = $context.find(`[data-${wsTabs.keys.button}]`);
-		let $blocks = $context.find(`[data-${wsTabs.keys.block}]`);
-		dropDependencies($buttons, [wsTabs.keys.myBlock, wsTabs.keys.myButtons]);
-		dropDependencies($blocks, [wsTabs.keys.myBlocks]);
+		let $buttons = $context.find(`[data-${this.keys.button}]`);
+		let $blocks = $context.find(`[data-${this.keys.block}]`);
+		dropDependencies($buttons, [this.keys.myBlock, this.keys.myButtons]);
+		dropDependencies($blocks, [this.keys.myBlocks]);
 		return {$buttons, $blocks};
 	},
 
@@ -260,7 +261,11 @@ const wsTabs = {
 	 */
 	updateDependencies ($context = $(document)) {
 		const {$buttons} = this.dropDependencies($context);
-		$buttons.each((i, button) => _ejectData($(button), $context));
+		$buttons.each((i, button) => {
+			const $button = $(button);
+			const {myNs, myName, $block, $syncButtons} = _ejectData($button, $context);
+			_runHook('update', myNs, myName, $button, $block, $syncButtons);
+		});
 	}
 };
 
