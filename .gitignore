@@ -11,7 +11,8 @@ atlassian-ide-plugin.xml
 # Nodejs
 .npm/
 node_modules/
-*.log*
+/*.log*
+package-lock.json
 
 # fs
 .DS_Store
