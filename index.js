@@ -9,6 +9,7 @@
 // Imports
 // ----------------------------------------
 
+import $ from 'jquery';
 import 'custom-jquery-methods/fn/get-my-elements';
 
 // ----------------------------------------
@@ -52,15 +53,16 @@ function _ejectData ($button, $context) {
 			return $button.getMyElements(wsTabs.keys.myBlock, this.blockSelector);
 		},
 		get $siblingBlocks () {
-			return this.$block.getMyElements(wsTabs.keys.myBlocks, this.blocksSelector, $context, true);
+			let $blocks = this.$block.getMyElements(wsTabs.keys.myBlocks, this.blocksSelector, $context, true);
+			return $blocks.not(this.blockSelector);
 		},
 		get $siblingButtons () {
 			return $sibling || $button.getMyElements(wsTabs.keys.myButtons, this.buttonsSelector, $context, true);
 		},
 		get $syncButtons () {
 			return this.$siblingButtons.filter(this.buttonSyncSelector);
-		},
-	}
+		}
+	};
 	if (data.$syncButtons.length) {
 		$sibling = data.$siblingButtons.not(data.$syncButtons);
 	}
@@ -89,7 +91,7 @@ function _runHook (name, ...args) {
  * @private
  */
 function _changeTab ($button, $context) {
-	const {myNs, myName, $block, $siblingBlocks, $siblingButtons, $syncButtons} = _ejectData($button, $context);
+	const { myNs, myName, $block, $siblingBlocks, $siblingButtons, $syncButtons } = _ejectData($button, $context);
 	if (_noReact($button)) {
 		_runHook('beforeAgain', myNs, myName, $button, $block);
 		$button.add($block).trigger(wsTabs.events.again);
@@ -210,18 +212,18 @@ const wsTabs = {
 	 */
 	init ($context = $(document)) {
 		this.updateDependencies($context);
-		$context.on('click', `[data-${this.keys.button}]`, {$context}, function () {
+		$context.on('click', `[data-${this.keys.button}]`, { $context }, function () {
 			_changeTab($(this), $context);
 		});
 
-		$context.on('keydown', `[data-${this.keys.button}]`, {$context}, function (event) {
+		$context.on('keydown', `[data-${this.keys.button}]`, { $context }, function (event) {
 			let code = null;
 			if (event.key !== undefined) {
-				code = event.key
+				code = event.key;
 			} else if (event.keyIdentifier !== undefined) {
-				code = event.keyIdentifier
+				code = event.keyIdentifier;
 			} else if (event.keyCode !== undefined) {
-				code = event.keyCode
+				code = event.keyCode;
 			}
 			if (code === 13 || code.toLowerCase() === 'enter') {
 				_changeTab($(this), $context);
@@ -250,7 +252,7 @@ const wsTabs = {
 		let $blocks = $context.find(`[data-${this.keys.block}]`);
 		dropDependencies($buttons, [this.keys.myBlock, this.keys.myButtons]);
 		dropDependencies($blocks, [this.keys.myBlocks]);
-		return {$buttons, $blocks};
+		return { $buttons, $blocks };
 	},
 
 	/**
@@ -260,10 +262,10 @@ const wsTabs = {
 	 * @param {jQuery} [$context=$(document)]
 	 */
 	updateDependencies ($context = $(document)) {
-		const {$buttons} = this.dropDependencies($context);
+		const { $buttons } = this.dropDependencies($context);
 		$buttons.each((i, button) => {
 			const $button = $(button);
-			const {myNs, myName, $block, $syncButtons} = _ejectData($button, $context);
+			const { myNs, myName, $block, $syncButtons } = _ejectData($button, $context);
 			_runHook('update', myNs, myName, $button, $block, $syncButtons);
 		});
 	}
