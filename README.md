@@ -30,8 +30,8 @@ Setup blocks with content you needed
 
 ```html
 <div data-wstabs-ns="group-a" data-wstabs-block="1" class="my-block is-active">First block content</div>
-<div data-wstabs-ns="group-a" data-wstabs-block="2" class="my-block is-active">Second block content</div>
-<div data-wstabs-ns="group-a" data-wstabs-block="3" class="my-block is-active">Third block content</div>
+<div data-wstabs-ns="group-a" data-wstabs-block="2" class="my-block">Second block content</div>
+<div data-wstabs-ns="group-a" data-wstabs-block="3" class="my-block">Third block content</div>
 ```
 
 _Explanations:_
@@ -46,3 +46,53 @@ _Explanations:_
 - CSS class `is-active`
     - this is the default class for active buttons and block.
     - when you activate a tab, this class will be added to the corresponding buttons and block. When deactivated, it will be removed from the elements.
+
+
+### CSS
+
+> Wezom Standard Tabs do not have any default style solutions!  
+> You can specify your own visualization with your own CSS code
+
+A simple example, based on the code presented in the section `Markup` above.
+
+_style the buttons_
+
+```css
+/* Not active state */
+.my-button {
+    border-color: #444;
+    background: #ccc;
+    cursor: pointer;
+}
+
+/* Make more brighter on active state
+ * with tab's default CSS class */
+.my-button.is-active {
+    border-color: #999;
+    background: #eee;
+    cursor: default;
+}
+```
+
+_style the blocks_
+
+```css
+/* Hide on inactive the state */
+.my-block {
+    display: none;
+}
+
+/* Show block on active state
+ * with tab's default CSS class */
+.my-button.is-active {
+    display: block;
+}
+```
+
+_alternate way to style the bocks_
+
+```css
+.my-block:not(.is-active) {
+    display: none;
+}
+```
