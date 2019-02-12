@@ -8,7 +8,7 @@
 
 ## Usage
 
-### Markup
+### 1. Markup
 
 Setup buttons to toggle tabs blocks.
 
@@ -48,7 +48,7 @@ _Explanations:_
     - when you activate a tab, this class will be added to the corresponding buttons and block. When deactivated, it will be removed from the elements.
 
 
-### CSS
+### 2. CSS
 
 > Wezom Standard Tabs do not have any default style solutions!  
 > You can specify your own visualization with your own CSS code
@@ -89,7 +89,7 @@ _style the blocks_
 }
 ```
 
-_alternate way to style the bocks_
+_alternate way to style the blocks_
 
 ```css
 .my-block:not(.is-active) {
