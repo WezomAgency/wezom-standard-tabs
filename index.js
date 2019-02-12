@@ -3,6 +3,8 @@
 /**
  * Wezom Standard Tabs
  * @module
+ * @author Oleg Dutchenko <dutchenko.o.dev@gmail.com>
+ * @licence {@link https://github.com/WezomAgency/wezom-standard-tabs/blob/master/LICENSE}
  */
 
 // ----------------------------------------
@@ -17,7 +19,6 @@ import 'custom-jquery-methods/fn/get-my-elements';
 // ----------------------------------------
 
 /**
- * Не реагировать на клик
  * @param {jQuery} $button
  * @return {boolean|undefined}
  * @private
@@ -110,7 +111,6 @@ function _changeTab ($button, $context) {
 }
 
 /**
- * Активация табов, если нету активных
  * @param {jQuery} $buttons
  * @param {jQuery} $context
  * @private
@@ -133,7 +133,6 @@ function setActiveIfNotHave ($buttons, $context) {
 }
 
 /**
- * Сброс зависимолстей
  * @param {jQuery} $list
  * @param {strig[]} keys
  * @private
@@ -157,8 +156,6 @@ function dropDependencies ($list, keys) {
  */
 const wsTabs = {
 	/**
-	 * События
-	 * @sourceCode
 	 * @enum {string}
 	 */
 	events: {
@@ -168,7 +165,6 @@ const wsTabs = {
 	},
 
 	/**
-	 * @sourceCode
 	 * @enum {function[]}
 	 */
 	hooks: {
@@ -182,8 +178,6 @@ const wsTabs = {
 	},
 
 	/**
-	 * CSS классы
-	 * @sourceCode
 	 * @enum {string}
 	 */
 	cssClass: {
@@ -192,8 +186,6 @@ const wsTabs = {
 	},
 
 	/**
-	 * Ключи
-	 * @sourceCode
 	 * @enum {string}
 	 */
 	keys: {
@@ -206,8 +198,8 @@ const wsTabs = {
 	},
 
 	/**
-	 * Инициализация
-	 * @sourceCode
+	 * Initialize.
+	 * Set dependencies and delegated handlers
 	 * @param {jQuery} [$context=$(document)]
 	 */
 	init ($context = $(document)) {
@@ -232,8 +224,7 @@ const wsTabs = {
 	},
 
 	/**
-	 * Принудительная активация табов, если нету активных
-	 * @sourceCode
+	 * Forced activation of tabs if there are no active one
 	 * @param {jQuery} [$context=$(document)]
 	 */
 	setActive ($context = $(document)) {
@@ -242,8 +233,7 @@ const wsTabs = {
 	},
 
 	/**
-	 * Сброс всех связей.
-	 * @sourceCode
+	 * Reset all dependencies
 	 * @param {jQuery} [$context=$(document)]
 	 * @return {{$buttons: $jQuery, $blocks: $jQuery}}
 	 */
@@ -256,9 +246,8 @@ const wsTabs = {
 	},
 
 	/**
-	 * Обновление всех связей с предварительным сбросом.
-	 * Актуально при динамическом добавление новый кнопок и блоков в уже существующие группы табов
-	 * @sourceCode
+	 * Update all dependencies with pre-reset.
+	 * Actual when dynamically adding new buttons and blocks to existing tab groups
 	 * @param {jQuery} [$context=$(document)]
 	 */
 	updateDependencies ($context = $(document)) {
