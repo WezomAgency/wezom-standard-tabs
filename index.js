@@ -19,6 +19,16 @@ import 'custom-jquery-methods/fn/get-my-elements';
 // ----------------------------------------
 
 /**
+ * @type {{myBlocks: string, myBlock: string, myButtons: string}}
+ * @private
+ */
+const _myKeys = {
+	myBlock: '$myWsTabsBlock',
+	myBlocks: '$myWsTabsBlocks',
+	myButtons: '$myWsTabsButtons'
+};
+
+/**
  * @param {jQuery} $button
  * @return {boolean|undefined}
  * @private
@@ -51,14 +61,14 @@ function _ejectData ($button, $context) {
 			return `[data-${wsTabs.keys.ns}="${this.myNs}"][data-${wsTabs.keys.block}="${this.myName}"]`;
 		},
 		get $block () {
-			return $button.getMyElements(wsTabs.keys.myBlock, this.blockSelector);
+			return $button.getMyElements(_myKeys.myBlock, this.blockSelector);
 		},
 		get $siblingBlocks () {
-			let $blocks = this.$block.getMyElements(wsTabs.keys.myBlocks, this.blocksSelector, $context, true);
+			let $blocks = this.$block.getMyElements(_myKeys.myBlocks, this.blocksSelector, $context, true);
 			return $blocks.not(this.blockSelector);
 		},
 		get $siblingButtons () {
-			return $sibling || $button.getMyElements(wsTabs.keys.myButtons, this.buttonsSelector, $context, true);
+			return $sibling || $button.getMyElements(_myKeys.myButtons, this.buttonsSelector, $context, true);
 		},
 		get $syncButtons () {
 			return this.$siblingButtons.filter(this.buttonSyncSelector);
@@ -191,10 +201,7 @@ const wsTabs = {
 	keys: {
 		ns: 'wstabs-ns',
 		button: 'wstabs-button',
-		block: 'wstabs-block',
-		myBlock: '$myWsTabsBlock',
-		myBlocks: '$myWsTabsBlocks',
-		myButtons: '$myWsTabsButtons'
+		block: 'wstabs-block'
 	},
 
 	/**
@@ -233,15 +240,15 @@ const wsTabs = {
 	},
 
 	/**
-	 * Reset all dependencies
+	 * Remove all dependencies
 	 * @param {jQuery} [$context=$(document)]
 	 * @return {{$buttons: $jQuery, $blocks: $jQuery}}
 	 */
 	dropDependencies ($context = $(document)) {
 		let $buttons = $context.find(`[data-${this.keys.button}]`);
 		let $blocks = $context.find(`[data-${this.keys.block}]`);
-		dropDependencies($buttons, [this.keys.myBlock, this.keys.myButtons]);
-		dropDependencies($blocks, [this.keys.myBlocks]);
+		dropDependencies($buttons, [_myKeys.myBlock, _myKeys.myButtons]);
+		dropDependencies($blocks, [_myKeys.myBlocks]);
 		return { $buttons, $blocks };
 	},
 
