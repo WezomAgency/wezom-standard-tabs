@@ -2,7 +2,7 @@
 
 :arrow_left: [Wezom Standard Tabs](../README.md)
 
-#### *Sections*
+#### *Table of contents*
 
 - [Methods](#methods)
     - [init()](#init)
