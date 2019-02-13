@@ -117,11 +117,11 @@ wsTabs.init($myContainer);
 
 ## Further reading
 
-1. API
+1. [API](https://github.com/WezomAgency/wezom-standard-tabs/blob/master/docs/api.md)
 
 
 ---
 
 ## License
 
-Wezom Standard Tabs is distributed under [MIT Licence](ttps://github.com/WezomAgency/wezom-standard-tabs/blob/master/LICENSE).
+Wezom Standard Tabs is distributed under [MIT Licence](https://github.com/WezomAgency/wezom-standard-tabs/blob/master/LICENSE).

@@ -6,7 +6,7 @@
 
 - [Methods](#helpers)
     - [init()](#init)
-- [Properties](#properties)
+    - [setActive()](#setactive)
 
 ---
 
@@ -39,6 +39,8 @@ _Returns:_ `undefined`
 
 Forced activation of tabs if there are no active one.  
 May helps if you do not have the opportunity to set the class of the desired tab. The method will detect all groups (at the time of the call) and activate the first tab in each group where there are no active elements.
+
+Call this method after setup tabs dependencies ([init()](#init) method)
 
 
 ```js
