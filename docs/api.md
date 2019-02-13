@@ -36,7 +36,7 @@
 
 ### init()
 
-:arrow_left: [Wezom Standard Tabs](./index.md) | :arrow_up: [Top](#readme)
+:arrow_left: [Wezom Standard Tabs](../README.md) | :arrow_up: [Top](#readme)
 
 Initialize.  
 Set dependencies and delegated handlers
@@ -57,7 +57,7 @@ _Returns:_ `undefined`
 
 ### setActive()
 
-:arrow_left: [Wezom Standard Tabs](./index.md) | :arrow_up: [Top](#readme)
+:arrow_left: [Wezom Standard Tabs](../README.md) | :arrow_up: [Top](#readme)
 
 Forced activation of tabs if there are no active one.  
 May helps if you do not have the opportunity to set the class of the desired tab. The method will detect all groups (at the time of the call) and activate the first tab in each group where there are no active elements.
@@ -81,7 +81,7 @@ _Returns:_ `undefined`
 
 ### dropDependencies()
 
-:arrow_left: [Wezom Standard Tabs](./index.md) | :arrow_up: [Top](#readme)
+:arrow_left: [Wezom Standard Tabs](../README.md) | :arrow_up: [Top](#readme)
 
 Remove all dependencies
 
@@ -101,7 +101,7 @@ _Returns:_ `Object` with two properties `$buttons` and `$blocks` - jQuery elemen
 
 ### updateDependencies()
 
-:arrow_left: [Wezom Standard Tabs](./index.md) | :arrow_up: [Top](#readme)
+:arrow_left: [Wezom Standard Tabs](../README.md) | :arrow_up: [Top](#readme)
 
 Update all dependencies with pre-reset.  
 Actual when dynamically adding new buttons and blocks to existing tab groups

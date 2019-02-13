@@ -12,7 +12,7 @@
 
 ### Markup
 
-:arrow_left: [Wezom Standard Tabs](./index.md) | :arrow_up: [Top](#readme)
+:arrow_left: [Wezom Standard Tabs](../README.md) | :arrow_up: [Top](#readme)
 
 Setup buttons to toggle tabs blocks.
 
@@ -55,7 +55,7 @@ _Explanations:_
 
 ### CSS
 
-:arrow_left: [Wezom Standard Tabs](./index.md) | :arrow_up: [Top](#readme)
+:arrow_left: [Wezom Standard Tabs](../README.md) | :arrow_up: [Top](#readme)
 
 > Wezom Standard Tabs do not have any default style solutions!  
 > You can specify your own visualization with your own CSS code
@@ -108,7 +108,7 @@ _alternate way to style the blocks_
 
 ### JavaScript
 
-:arrow_left: [Wezom Standard Tabs](./index.md) | :arrow_up: [Top](#readme)
+:arrow_left: [Wezom Standard Tabs](../README.md) | :arrow_up: [Top](#readme)
 
 _**Note!** Wezom Standard Tabs is based on jQuery library._  
 _It's has inner import for jQuery from `node_modules`_ 
