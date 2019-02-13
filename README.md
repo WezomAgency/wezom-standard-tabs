@@ -8,7 +8,7 @@
 
 ## Requirements
 
-`Wezom Standard Tabs` was written with [ES6 modules](https://www.ecma-international.org/ecma-262/6.0/#sec-modules) standard!  
+"Wezom Standard Tabs" was written with [ES6 modules](https://www.ecma-international.org/ecma-262/6.0/#sec-modules) standard!  
 We recommend to use it with in your bundle system aboard, like [`webpack`](https://webpack.js.org/), [`browserify`](http://browserify.org/), [`parcel`](https://en.parceljs.org/), or something else.
 
 ## Docs
@@ -21,4 +21,4 @@ We recommend to use it with in your bundle system aboard, like [`webpack`](https
 
 ## License
 
-Wezom Standard Tabs is distributed under [MIT Licence](https://github.com/WezomAgency/wezom-standard-tabs/blob/master/LICENSE).
+"Wezom Standard Tabs" is distributed under [MIT Licence](https://github.com/WezomAgency/wezom-standard-tabs/blob/master/LICENSE).
