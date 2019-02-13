@@ -96,3 +96,32 @@ _alternate way to style the blocks_
     display: none;
 }
 ```
+
+### JS
+
+_**Note!** Wezom Standard Tabs is based on jQuery library._  
+_It's has inner import for jQuery from `node_modules`_ 
+
+```js
+import wsTabs from 'wezom-standard-tabs';
+
+// initialize for the whole document
+wsTabs.init();
+
+// or local initialize in some container
+const $myContainer = $('#my-parent-container');
+wsTabs.init($myContainer);
+```
+
+----
+
+## Further reading
+
+1. API
+
+
+---
+
+## License
+
+Wezom Standard Tabs is distributed under [MIT Licence](ttps://github.com/WezomAgency/wezom-standard-tabs/blob/master/LICENSE).
