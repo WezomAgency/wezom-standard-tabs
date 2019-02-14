@@ -129,7 +129,7 @@ type `Object`
 
 Contains properties with used CSS classes.
 
-#### active
+#### cssClass.active
 
 type `sting`  
 default `"is-active"`
@@ -142,7 +142,6 @@ _We recommend to do that before calling [`init()` method](#init)_
 ```js
 import wsTabs from 'wezom-standard-tabs';
 wsTabs.cssClass.active = 'is-current';
-// do that before init
 wsTabs.init();
 ```
 
@@ -156,7 +155,7 @@ wsTabs.updateDependencies();
 wsTabs.setActive();
 ```
 
-#### disable
+#### cssClass.disable
 
 type `sting`  
 default `"is-disabled"`
