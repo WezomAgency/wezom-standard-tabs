@@ -11,24 +11,24 @@
     - [updateDependencies()](#updatedependencies)
 - [Properties](#properties)
     - [cssClass](#cssclass)
-        - [active](#active)
-        - [disable](#disable)
+        - [active](#cssclassactive)
+        - [disable](#cssclassdisable)
     - [keys](#keys)
-        - [ns](#ns)
-        - [button](#button)
-        - [block](#block)
+        - [ns](#keysns)
+        - [button](#keysbutton)
+        - [block](#keysblock)
     - [events](#events)
-        - [on](#on)
-        - [off](#off)
-        - [again](#again)
+        - [on](#eventson)
+        - [off](#eventsoff)
+        - [again](#eventsagain)
     - [hooks](#hooks)
-        - [beforeOn](#beforeon)
-        - [beforeOff](#beforeoff)
-        - [beforeAgain](#beforeagain)
-        - [on](#on-1)
-        - [off](#off-1)
-        - [again](#again-1)
-        - [update](#update)
+        - [beforeOn](#hooksbeforeon)
+        - [beforeOff](#hooksbeforeoff)
+        - [beforeAgain](#hooksbeforeagain)
+        - [on](#hookson)
+        - [off](#hooksoff)
+        - [again](#hooksagain)
+        - [update](#hooksupdate)
 
 ---
 
@@ -141,7 +141,7 @@ _We recommend to do that before calling [`init()` method](#init)_
 
 ```js
 import wsTabs from 'wezom-standard-tabs';
-wsTabs.cssClass.active = 'is-current';
+wsTabs.cssClass.active = 'is-current'; // example
 wsTabs.init();
 ```
 
@@ -149,18 +149,42 @@ If you change this property after initialization - call [`updateDependencies()`]
 
 ```js
 // ... initialized
-
 wsTabs.cssClass.active = 'new-active-class';
 wsTabs.updateDependencies();
 wsTabs.setActive();
 ```
+
+
+---
 
 #### cssClass.disable
 
 type `sting`  
 default `"is-disabled"`
 
-CSS class for disabled tab buttons. This elements are ignored on trying to activate them
+CSS class for disabled tab buttons. This elements are ignored on trying to activate them.
+
+Checking for ignore is executed at the moment of on activation try.
+
+You can change this property value  to your discretion or needs.  
+_You can change this property at any time, without calling extra methods to update plugin_
+
+```js
+wsTabs.cssClass.disabled = 'ignore-this'; // example
+```
+
+> _**Note!** If button has attribute `disabled` - button will be ignored_  
+> _no matter which class is present there_ 
+
+If you change this property after initialization - call [`updateDependencies()`](#updatedependencies) and [`setActive()`](#setactive) methods;
+
+
+```html
+<button data-wstabs-ns="group-a" data-wstabs-button="1" class="my-button is-active">First button</button>
+<button disabled data-wstabs-ns="group-a" data-wstabs-button="2" class="my-button">Blocked button</button>
+<button data-wstabs-ns="group-a" data-wstabs-button="3" class="my-button">Third button</button>
+```
+```
 
 ---
 
