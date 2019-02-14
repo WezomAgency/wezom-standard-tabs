@@ -123,13 +123,20 @@ _Returns:_ `undefined`
 
 ## Properties
 
+:arrow_left: [Wezom Standard Tabs](../README.md) | :arrow_up: [Top](#readme)
+
 ### cssClass
 
 type `Object`
 
 Contains properties with used CSS classes.
 
+
+---
+
 #### cssClass.active
+
+:arrow_left: [Wezom Standard Tabs](../README.md) | :arrow_up: [Top](#readme)
 
 type `sting`  
 default `"is-active"`
@@ -158,6 +165,8 @@ wsTabs.setActive();
 ---
 
 #### cssClass.disable
+
+:arrow_left: [Wezom Standard Tabs](../README.md) | :arrow_up: [Top](#readme)
 
 type `sting`  
 default `"is-disabled"`
