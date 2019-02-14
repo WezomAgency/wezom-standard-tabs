@@ -53,6 +53,11 @@ _Parameters:_
 
 _Returns:_ `undefined`
 
+```js
+import wsTabs from 'wezom-standard-tabs';
+wsTabs.init();
+```
+
 ---
 
 ### setActive()
@@ -61,8 +66,6 @@ _Returns:_ `undefined`
 
 Forced activation of tabs if there are no active one.  
 May helps if you do not have the opportunity to set the class of the desired tab. The method will detect all groups (at the time of the call) and activate the first tab in each group where there are no active elements.
-
-Call this method after setup tabs dependencies ([init()](#init) method)
 
 
 ```js
@@ -76,6 +79,14 @@ _Parameters:_
 | **$context**  | `jQuery` | &lt;optional> | `$(document)` | Parent container where needs to look up for tab groups |
 
 _Returns:_ `undefined`
+
+Call this method after setup tabs dependencies ([init()](#init) method)
+
+```js
+import wsTabs from 'wezom-standard-tabs';
+wsTabs.init();
+wsTabs.setActive();
+```
 
 ---
 
@@ -97,6 +108,14 @@ _Parameters:_
 
 _Returns:_ `Object` with two properties `$buttons` and `$blocks` - jQuery elements, where tabs dependencies was removed
 
+```js
+import wsTabs from 'wezom-standard-tabs';
+wsTabs.init();
+// ... some code
+const elements = wsTabs.dropDependencies();
+console.log(elements);
+```
+
 ---
 
 ### updateDependencies()
@@ -117,6 +136,13 @@ _Parameters:_
 | **$context**  | `jQuery` | &lt;optional> | `$(document)` | Parent container where needs to look up for tab groups |
 
 _Returns:_ `undefined`
+
+```js
+import wsTabs from 'wezom-standard-tabs';
+wsTabs.init();
+// ... some code
+wsTabs.updateDependencies();
+```
 
 ---
 
