@@ -80,7 +80,7 @@ _Parameters:_
 
 _Returns:_ `undefined`
 
-Call this method after setup tabs dependencies ([init()](#init) method)
+Call this method after setup tabs dependencies ([`init()`](#init) or [`updateDependencies()`](#updatedependencies) methods)
 
 ```js
 import wsTabs from 'wezom-standard-tabs';
@@ -201,7 +201,7 @@ CSS class for disabled tab buttons. This elements are ignored on trying to activ
 Checking for ignore is executed at the moment of on activation try.
 
 You can change this property value  to your discretion or needs.  
-_You don't need to calling extra methods to update the plugin, after changing value_
+_You don't need to calling extra methods to update the plugin, after changing the value._
 
 ```js
 wsTabs.cssClass.disabled = 'ignore-this'; // example
