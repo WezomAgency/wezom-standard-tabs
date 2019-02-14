@@ -125,9 +125,43 @@ _Returns:_ `undefined`
 
 ### cssClass
 
+type `Object`
+
+Contains properties with used CSS classes.
+
 #### active
 
+type `sting`  
+default `"is-active"`
+
+CSS class for active tab elements (buttons and block).  
+
+You can change this property value  to your discretion or needs.  
+_We recommend to do that before calling [`init()` method](#init)_
+
+```js
+import wsTabs from 'wezom-standard-tabs';
+wsTabs.cssClass.active = 'is-current';
+// do that before init
+wsTabs.init();
+```
+
+If you change this property after initialization - call [`updateDependencies()`](#updatedependencies) and [`setActive()`](#setactive) methods;
+
+```js
+// ... initialized
+
+wsTabs.cssClass.active = 'new-active-class';
+wsTabs.updateDependencies();
+wsTabs.setActive();
+```
+
 #### disable
+
+type `sting`  
+default `"is-disabled"`
+
+CSS class for disabled tab buttons. This elements are ignored on trying to activate them
 
 ---
 
@@ -168,3 +202,5 @@ _Returns:_ `undefined`
 #### update
 
 ---
+
+:arrow_left: [Wezom Standard Tabs](../README.md) | :arrow_up: [Top](#readme)

@@ -125,3 +125,5 @@ wsTabs.init($myContainer);
 ```
 
 ----
+
+:arrow_left: [Wezom Standard Tabs](../README.md) | :arrow_up: [Top](#readme)
