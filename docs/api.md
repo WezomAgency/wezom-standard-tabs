@@ -104,7 +104,7 @@ _Returns:_ `Object` with two properties `$buttons` and `$blocks` - jQuery elemen
 :arrow_left: [Wezom Standard Tabs](../README.md) | :arrow_up: [Top](#readme)
 
 Update all dependencies with pre-reset.  
-Actual when dynamically adding new buttons and blocks to existing tab groups
+Actual when dynamically adding new buttons and blocks to existring tab groups
 
 ```js
 wsTabs.updateDependencies([$context]): void
@@ -138,7 +138,7 @@ Contains properties with used CSS classes.
 
 :arrow_left: [Wezom Standard Tabs](../README.md) | :arrow_up: [Top](#readme)
 
-type `sting`  
+type `string`  
 default `"is-active"`
 
 CSS class for active tab elements (buttons and block).  
@@ -168,7 +168,7 @@ wsTabs.setActive();
 
 :arrow_left: [Wezom Standard Tabs](../README.md) | :arrow_up: [Top](#readme)
 
-type `sting`  
+type `string`  
 default `"is-disabled"`
 
 CSS class for disabled tab buttons. This elements are ignored on trying to activate them.
@@ -176,7 +176,7 @@ CSS class for disabled tab buttons. This elements are ignored on trying to activ
 Checking for ignore is executed at the moment of on activation try.
 
 You can change this property value  to your discretion or needs.  
-_You can change this property at any time, without calling extra methods to update plugin_
+_You don't need to calling extra methods to update the plugin, after changing value_
 
 ```js
 wsTabs.cssClass.disabled = 'ignore-this'; // example
