@@ -171,8 +171,7 @@ wsTabs.setActive();
 type `string`  
 default `"is-disabled"`
 
-CSS class for disabled tab buttons. This elements are ignored on trying to activate them.
-
+CSS class for disabled tab buttons. This elements are ignored on trying to activate them.  
 Checking for ignore is executed at the moment of on activation try.
 
 You can change this property value  to your discretion or needs.  
@@ -185,15 +184,13 @@ wsTabs.cssClass.disabled = 'ignore-this'; // example
 > _**Note!** If button has attribute `disabled` - button will be ignored_  
 > _no matter which class is present there_ 
 
-If you change this property after initialization - call [`updateDependencies()`](#updatedependencies) and [`setActive()`](#setactive) methods;
-
 
 ```html
 <button data-wstabs-ns="group-a" data-wstabs-button="1" class="my-button is-active">First button</button>
 <button disabled data-wstabs-ns="group-a" data-wstabs-button="2" class="my-button">Blocked button</button>
 <button data-wstabs-ns="group-a" data-wstabs-button="3" class="my-button">Third button</button>
 ```
-```
+
 
 ---
 
