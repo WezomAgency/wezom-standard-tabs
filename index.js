@@ -3,6 +3,8 @@
 /**
  * Wezom Standard Tabs
  * @module
+ * @author Oleg Dutchenko <dutchenko.o.dev@gmail.com>
+ * @licence {@link https://github.com/WezomAgency/wezom-standard-tabs/blob/master/LICENSE}
  */
 
 // ----------------------------------------
@@ -17,7 +19,16 @@ import 'custom-jquery-methods/fn/get-my-elements';
 // ----------------------------------------
 
 /**
- * Не реагировать на клик
+ * @type {{myBlocks: string, myBlock: string, myButtons: string}}
+ * @private
+ */
+const _myKeys = {
+	myBlock: '$myWsTabsBlock',
+	myBlocks: '$myWsTabsBlocks',
+	myButtons: '$myWsTabsButtons'
+};
+
+/**
  * @param {jQuery} $button
  * @return {boolean|undefined}
  * @private
@@ -50,14 +61,14 @@ function _ejectData ($button, $context) {
 			return `[data-${wsTabs.keys.ns}="${this.myNs}"][data-${wsTabs.keys.block}="${this.myName}"]`;
 		},
 		get $block () {
-			return $button.getMyElements(wsTabs.keys.myBlock, this.blockSelector);
+			return $button.getMyElements(_myKeys.myBlock, this.blockSelector);
 		},
 		get $siblingBlocks () {
-			let $blocks = this.$block.getMyElements(wsTabs.keys.myBlocks, this.blocksSelector, $context, true);
+			let $blocks = this.$block.getMyElements(_myKeys.myBlocks, this.blocksSelector, $context, true);
 			return $blocks.not(this.blockSelector);
 		},
 		get $siblingButtons () {
-			return $sibling || $button.getMyElements(wsTabs.keys.myButtons, this.buttonsSelector, $context, true);
+			return $sibling || $button.getMyElements(_myKeys.myButtons, this.buttonsSelector, $context, true);
 		},
 		get $syncButtons () {
 			return this.$siblingButtons.filter(this.buttonSyncSelector);
@@ -110,7 +121,6 @@ function _changeTab ($button, $context) {
 }
 
 /**
- * Активация табов, если нету активных
  * @param {jQuery} $buttons
  * @param {jQuery} $context
  * @private
@@ -133,7 +143,6 @@ function setActiveIfNotHave ($buttons, $context) {
 }
 
 /**
- * Сброс зависимолстей
  * @param {jQuery} $list
  * @param {strig[]} keys
  * @private
@@ -157,8 +166,6 @@ function dropDependencies ($list, keys) {
  */
 const wsTabs = {
 	/**
-	 * События
-	 * @sourceCode
 	 * @enum {string}
 	 */
 	events: {
@@ -168,7 +175,6 @@ const wsTabs = {
 	},
 
 	/**
-	 * @sourceCode
 	 * @enum {function[]}
 	 */
 	hooks: {
@@ -182,8 +188,6 @@ const wsTabs = {
 	},
 
 	/**
-	 * CSS классы
-	 * @sourceCode
 	 * @enum {string}
 	 */
 	cssClass: {
@@ -192,22 +196,17 @@ const wsTabs = {
 	},
 
 	/**
-	 * Ключи
-	 * @sourceCode
 	 * @enum {string}
 	 */
 	keys: {
 		ns: 'wstabs-ns',
 		button: 'wstabs-button',
-		block: 'wstabs-block',
-		myBlock: '$myWsTabsBlock',
-		myBlocks: '$myWsTabsBlocks',
-		myButtons: '$myWsTabsButtons'
+		block: 'wstabs-block'
 	},
 
 	/**
-	 * Инициализация
-	 * @sourceCode
+	 * Initialize.
+	 * Set dependencies and delegated handlers
 	 * @param {jQuery} [$context=$(document)]
 	 */
 	init ($context = $(document)) {
@@ -232,8 +231,7 @@ const wsTabs = {
 	},
 
 	/**
-	 * Принудительная активация табов, если нету активных
-	 * @sourceCode
+	 * Forced activation of tabs if there are no active one
 	 * @param {jQuery} [$context=$(document)]
 	 */
 	setActive ($context = $(document)) {
@@ -242,23 +240,21 @@ const wsTabs = {
 	},
 
 	/**
-	 * Сброс всех связей.
-	 * @sourceCode
+	 * Remove all dependencies
 	 * @param {jQuery} [$context=$(document)]
 	 * @return {{$buttons: $jQuery, $blocks: $jQuery}}
 	 */
 	dropDependencies ($context = $(document)) {
 		let $buttons = $context.find(`[data-${this.keys.button}]`);
 		let $blocks = $context.find(`[data-${this.keys.block}]`);
-		dropDependencies($buttons, [this.keys.myBlock, this.keys.myButtons]);
-		dropDependencies($blocks, [this.keys.myBlocks]);
+		dropDependencies($buttons, [_myKeys.myBlock, _myKeys.myButtons]);
+		dropDependencies($blocks, [_myKeys.myBlocks]);
 		return { $buttons, $blocks };
 	},
 
 	/**
-	 * Обновление всех связей с предварительным сбросом.
-	 * Актуально при динамическом добавление новый кнопок и блоков в уже существующие группы табов
-	 * @sourceCode
+	 * Update all dependencies with pre-reset.
+	 * Actual when dynamically adding new buttons and blocks to existing tab groups
 	 * @param {jQuery} [$context=$(document)]
 	 */
 	updateDependencies ($context = $(document)) {
