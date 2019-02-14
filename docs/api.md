@@ -49,7 +49,7 @@ _Parameters:_
 
 | Name | Type | Attributes | Default | Description |
 | :--- | :--- | :--------- | :------ | :---------- |
-| **$context**  | `jQuery` |  `$(document)` |     | Parent container where tabs are to be initialized |
+| **$context**  | `jQuery` |  &lt;optional> | `$(document)` | Parent container where tabs are to be initialized |
 
 _Returns:_ `undefined`
 
@@ -73,7 +73,7 @@ _Parameters:_
 
 | Name | Type | Attributes | Default | Description |
 | :--- | :--- | :--------- | :------ | :---------- |
-| **$context**  | `jQuery` |  `$(document)` |     | Parent container where needs to look up for tab groups |
+| **$context**  | `jQuery` | &lt;optional> | `$(document)` | Parent container where needs to look up for tab groups |
 
 _Returns:_ `undefined`
 
@@ -93,7 +93,7 @@ _Parameters:_
 
 | Name | Type | Attributes | Default | Description |
 | :--- | :--- | :--------- | :------ | :---------- |
-| **$context**  | `jQuery` |  `$(document)` |     | Parent container where needs to look up for tab groups |
+| **$context**  | `jQuery` | &lt;optional> | `$(document)` | Parent container where needs to look up for tab groups |
 
 _Returns:_ `Object` with two properties `$buttons` and `$blocks` - jQuery elements, where tabs dependencies was removed
 
@@ -114,7 +114,7 @@ _Parameters:_
 
 | Name | Type | Attributes | Default | Description |
 | :--- | :--- | :--------- | :------ | :---------- |
-| **$context**  | `jQuery` |  `$(document)` |     | Parent container where needs to look up for tab groups |
+| **$context**  | `jQuery` | &lt;optional> | `$(document)` | Parent container where needs to look up for tab groups |
 
 _Returns:_ `undefined`
 
