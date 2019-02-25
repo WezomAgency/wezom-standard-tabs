@@ -272,7 +272,7 @@ const wsTabs = {
 	 * @returns {{myNs: string, myName: string, buttonsSelector: string, buttonSyncSelector: string, blocksSelector: string, blockSelector: string, $block: jQuery, $siblingBlocks: jQuery, $siblingButtons: jQuery, $syncButtons: jQuery}}
 	 */
 	ejectData ($button, $context = $(document)) {
-		return _ejectData($button, $context)
+		return _ejectData($button, $context);
 	}
 };
 
