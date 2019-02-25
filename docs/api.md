@@ -9,6 +9,7 @@
     - [setActive()](#setactive)
     - [dropDependencies()](#dropdependencies)
     - [updateDependencies()](#updatedependencies)
+    - [ejectData()](#ejectdata)
 - [Properties](#properties)
     - [cssClass](#cssclass)
         - [active](#cssclassactive)
@@ -142,6 +143,49 @@ import wsTabs from 'wezom-standard-tabs';
 wsTabs.init();
 // ... some code
 wsTabs.updateDependencies();
+```
+
+---
+
+---
+
+### ejectData()
+
+:arrow_left: [Wezom Standard Tabs](../README.md) | :arrow_up: [Top](#readme)
+
+Get all data from tabs button.
+
+```js
+wsTabs.ejectData($button, [$context]): Object
+```
+
+_Parameters:_
+
+| Name | Type | Attributes | Default | Description |
+| :--- | :--- | :--------- | :------ | :---------- |
+| **$button**  | `jQuery` |    |   | Tabs button |
+| **$context**  | `jQuery` | &lt;optional> | `$(document)` | Parent container where needs to look up for tab groups |
+
+_Returns:_ `Object` see table below
+
+| Name | Type | Description |
+| :--- | :--- | :---------- |
+| **myNs**  | `string` | Tabs _group_ namespace |
+| **myNs**  | `string` | Button name in _group_ |
+| **buttonsSelector**  | `string` | --- |
+| **buttonSyncSelector**  | `string` | --- |
+| **blocksSelector**  | `string` | --- |
+| **blockSelector**  | `string` | --- |
+| **$block**  | `jQuery` | Tabs block for current button |
+| **$siblingBlocks**  | `jQuery` | Other blocks in group, except current block |
+| **$siblingButtons**  | `jQuery` | Other buttons in group, except current button |
+| **$syncButtons**  | `jQuery` | Synchronized buttons with current button |
+
+```js
+// ... initialized
+const tabsButton = $('.my-button');
+const tabsData = wsTabs.ejectData(tabsButton);
+console.log(tabsData.$block);
 ```
 
 ---
