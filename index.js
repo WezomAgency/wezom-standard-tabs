@@ -82,7 +82,7 @@ function _ejectData ($button, $context) {
 
 /**
  * @param {string} name
- * @param {*} ...args
+ * @param {...*} args
  * @private
  */
 function _runHook (name, ...args) {
@@ -144,7 +144,7 @@ function setActiveIfNotHave ($buttons, $context) {
 
 /**
  * @param {jQuery} $list
- * @param {strig[]} keys
+ * @param {string[]} keys
  * @private
  */
 function dropDependencies ($list, keys) {
