@@ -148,7 +148,7 @@ function setActiveIfNotHave ($buttons, $context) {
  * @private
  */
 function dropDependencies ($list, keys) {
-	const wsTabsKeys = Object.keys(wsTabs.keys);
+	const wsTabsKeys = Object.values(_myKeys);
 	$list.each((i, el) => {
 		let $item = $(el);
 		wsTabsKeys.forEach(key => {
