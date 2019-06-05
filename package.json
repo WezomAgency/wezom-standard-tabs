@@ -19,7 +19,7 @@
   "homepage": "https://github.com/WezomAgency/wezom-standard-tabs#readme",
   "dependencies": {
     "custom-jquery-methods": "^1.3.0",
-    "jquery": "^3.3.1"
+    "jquery": "^3.4.1"
   },
   "devDependencies": {
     "eslint": "^5.10.0",
