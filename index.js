@@ -44,7 +44,6 @@ function _noReact ($button) {
  * @private
  */
 function _ejectData ($button, $context) {
-	let $sibling = null;
 	const data = {
 		myNs: $button.data(wsTabs.keys.ns),
 		myName: $button.data(wsTabs.keys.button),
@@ -68,15 +67,17 @@ function _ejectData ($button, $context) {
 			return $blocks.not(this.blockSelector);
 		},
 		get $siblingButtons () {
-			return $sibling || $button.getMyElements(_myKeys.myButtons, this.buttonsSelector, $context, true);
+			return $button
+				.getMyElements(_myKeys.myButtons, this.buttonsSelector, $context, true)
+				.not(data.$syncButtons);
 		},
 		get $syncButtons () {
-			return this.$siblingButtons.filter(this.buttonSyncSelector);
+			return $button
+				.getMyElements(_myKeys.myButtons, this.buttonsSelector, $context, true)
+				.filter(this.buttonSyncSelector);
 		}
 	};
-	if (data.$syncButtons.length) {
-		$sibling = data.$siblingButtons.not(data.$syncButtons);
-	}
+
 	return data;
 }
 
