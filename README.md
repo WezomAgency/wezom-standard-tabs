@@ -17,6 +17,12 @@ We recommend to use it with in your bundle system aboard, like [`webpack`](https
 1. [API](https://github.com/WezomAgency/wezom-standard-tabs/blob/master/docs/api.md)
 
 
+## Contributors 💪
+
+- Олег Дутченко [@dutchenkoOleg](https://github.com/dutchenkoOleg)
+- Алексей Харитонов [@mistmee](https://github.com/detj)
+
+
 ---
 
 ## License
