@@ -162,22 +162,14 @@ function dropDependencies ($list, keys) {
 // Public
 // ----------------------------------------
 
-/**
- * @namespace
- */
+
 const wsTabs = {
-	/**
-	 * @enum {string}
-	 */
 	events: {
 		on: 'wstabs-on',
 		off: 'wstabs-off',
 		again: 'wstabs-again'
 	},
 
-	/**
-	 * @enum {function[]}
-	 */
 	hooks: {
 		beforeOn: [],
 		beforeOff: [],
@@ -188,28 +180,17 @@ const wsTabs = {
 		update: []
 	},
 
-	/**
-	 * @enum {string}
-	 */
 	cssClass: {
 		active: 'is-active',
 		disabled: 'is-disabled'
 	},
 
-	/**
-	 * @enum {string}
-	 */
 	keys: {
 		ns: 'wstabs-ns',
 		button: 'wstabs-button',
 		block: 'wstabs-block'
 	},
 
-	/**
-	 * Initialize.
-	 * Set dependencies and delegated handlers
-	 * @param {jQuery} [$context=$(document)]
-	 */
 	init ($context = $(document)) {
 		this.updateDependencies($context);
 		$context.on('click', `[data-${this.keys.button}]`, { $context }, function () {
@@ -231,20 +212,11 @@ const wsTabs = {
 		});
 	},
 
-	/**
-	 * Forced activation of tabs if there are no active one
-	 * @param {jQuery} [$context=$(document)]
-	 */
 	setActive ($context = $(document)) {
 		let $buttons = $context.find(`[data-${this.keys.button}]`);
 		setActiveIfNotHave($buttons, $context);
 	},
 
-	/**
-	 * Remove all dependencies
-	 * @param {jQuery} [$context=$(document)]
-	 * @return {{$buttons: $jQuery, $blocks: $jQuery}}
-	 */
 	dropDependencies ($context = $(document)) {
 		let $buttons = $context.find(`[data-${this.keys.button}]`);
 		let $blocks = $context.find(`[data-${this.keys.block}]`);
@@ -253,11 +225,6 @@ const wsTabs = {
 		return { $buttons, $blocks };
 	},
 
-	/**
-	 * Update all dependencies with pre-reset.
-	 * Actual when dynamically adding new buttons and blocks to existing tab groups
-	 * @param {jQuery} [$context=$(document)]
-	 */
 	updateDependencies ($context = $(document)) {
 		const { $buttons } = this.dropDependencies($context);
 		$buttons.each((i, button) => {
@@ -267,11 +234,6 @@ const wsTabs = {
 		});
 	},
 
-	/**
-	 * @param {jQuery} $button
-	 * @param {jQuery} [$context=$(document)]
-	 * @returns {{myNs: string, myName: string, buttonsSelector: string, buttonSyncSelector: string, blocksSelector: string, blockSelector: string, $block: jQuery, $siblingBlocks: jQuery, $siblingButtons: jQuery, $syncButtons: jQuery}}
-	 */
 	ejectData ($button, $context = $(document)) {
 		return _ejectData($button, $context);
 	}
